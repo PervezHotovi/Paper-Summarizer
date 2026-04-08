@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+
+# Environment Variables (VERY IMPORTANT for hosting)
+.env
+
+# Streamlit (optional configs)
+.streamlit/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs

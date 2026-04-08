@@ -1,0 +1,18 @@
+# LangChain Core
+langchain
+langchain-core
+
+# LangChain Community (for PyPDFLoader)
+langchain-community
+
+# Hugging Face Integration
+langchain-huggingface
+
+# Streamlit UI
+streamlit
+
+# PDF Processing
+pypdf
+
+# Environment Variable Management
+python-dotenv
