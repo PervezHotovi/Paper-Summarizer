@@ -5,10 +5,15 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from dotenv import load_dotenv
+import os
 
 
 load_dotenv()
 
+api_key = os.getenv("HUGGINGFACEHUB_API_TOKEN")
+
+if not api_key:
+    api_key = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
 
 # ---- LLM ----
 llm = HuggingFaceEndpoint(
@@ -26,7 +31,7 @@ prompt = PromptTemplate(
 )
 
 # ---- Streamlit UI ----
-st.title("Paper Summarizer Tool")
+st.title("Pdf Summarizer Tool")
 
 uploaded_file = st.file_uploader("Upload a PDF file", type="pdf", accept_multiple_files=False, help="Only PDF files are supported")
 
