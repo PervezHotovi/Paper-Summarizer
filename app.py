@@ -34,7 +34,7 @@ chain = prompt | model | parser
 # ---- Streamlit UI ----
 st.title("Paper Summarizer Tool")
 
-uploaded_file = st.file_uploader("Upload a PDF file", type="pdf", accept_multiple_files=False, help="Only PDF files are supported")
+uploaded_file = st.file_uploader("Upload a PDF file", type="pdf", accept_multiple_files=False, help="Only PDF files are supported", max_upload_size=50)
 
 
 def clean_text(text):
