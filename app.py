@@ -30,10 +30,15 @@ prompt = PromptTemplate(
     input_variables=["text"]
 )
 
+chain = prompt | model | parser
 # ---- Streamlit UI ----
 st.title("Paper Summarizer Tool")
 
 uploaded_file = st.file_uploader("Upload a PDF file", type="pdf", accept_multiple_files=False, help="Only PDF files are supported")
+
+
+def clean_text(text):
+    return text.encode("utf-8", "ignore").decode("utf-8")
 
 if uploaded_file is not None:
     
@@ -47,7 +52,7 @@ if uploaded_file is not None:
 
     # ---- Split text (important for large PDFs) ----
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,
+        chunk_size=2000,
         chunk_overlap=100
     )
 
@@ -56,14 +61,47 @@ if uploaded_file is not None:
     # Combine all chunks into one text (simple approach)
     full_text = " ".join([doc.page_content for doc in docs])
 
-    if st.button("Summarize"):
-        with st.spinner("Generating summary..."):
+    # if st.button("Summarize"):
+    #     with st.spinner("Generating summary..."):
             
-            chain = prompt | model | parser
-            result = chain.invoke({"text": full_text})
+    #         chain = prompt | model | parser
+    #         result = chain.invoke({"text": full_text})
 
-            st.subheader("📌 Summary")
-            st.write(result)
+    #         st.subheader("📌 Summary")
+    #         st.write(result)
+
+
+
+    # ---- Split into chunks ----
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=2000,
+        chunk_overlap=50
+    )
+
+    chunks = text_splitter.split_text(full_text)
+
+    if st.button("Generate Summary"):
+
+        summaries = []
+
+        with st.spinner("Processing chunks..."):
+            for chunk in chunks:
+                clean_chunk = clean_text(chunk) 
+                summary = chain.invoke({"text": clean_chunk})
+                summaries.append(summary)
+
+        # ---- Combine summaries ----
+        final_input = " ".join(summaries)
+
+        with st.spinner("Generating final summary..."):
+            final_summary = chain.invoke({"text": final_input})
+
+        st.subheader("📌 Final Summary")
+        st.write(final_summary)
+
+
+
+
 
 
             #footer
