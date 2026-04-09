@@ -74,7 +74,7 @@ if uploaded_file is not None:
 
     # ---- Split into chunks ----
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=2000,
+        chunk_size=2500,
         chunk_overlap=50
     )
 
