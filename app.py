@@ -31,7 +31,7 @@ prompt = PromptTemplate(
 )
 
 # ---- Streamlit UI ----
-st.title("Pdf Summarizer Tool")
+st.title("Paper Summarizer Tool")
 
 uploaded_file = st.file_uploader("Upload a PDF file", type="pdf", accept_multiple_files=False, help="Only PDF files are supported")
 
