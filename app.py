@@ -26,7 +26,7 @@ parser = StrOutputParser()
 
 # ---- Prompt ----
 prompt = PromptTemplate(
-    template="Summarize the following document in simple and clear points:\n\n{text}",
+    template="Summarize the following document in simple and clear points and also mention first of all that which type of document is means what actually are dicussing in the document like its a reaserch paper on any topic , notes etc:\n\n{text}",
     input_variables=["text"]
 )
 
@@ -67,7 +67,7 @@ if uploaded_file is not None:
     #         chain = prompt | model | parser
     #         result = chain.invoke({"text": full_text})
 
-    #         st.subheader("📌 Summary")
+    #         st.subheader(" Summary")
     #         st.write(result)
 
 
@@ -96,7 +96,7 @@ if uploaded_file is not None:
         with st.spinner("Generating final summary..."):
             final_summary = chain.invoke({"text": final_input})
 
-        st.subheader("📌 Final Summary")
+        st.subheader(" Final Summary")
         st.write(final_summary)
 
 
